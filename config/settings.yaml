@@ -1,0 +1,76 @@
+general:
+  section_title: "Section 14"
+  max_file_size_mb: 50
+  allowed_mime_types:
+    - application/pdf
+  output_encoding: "utf-8"
+
+text_parser:
+  table_detection:
+    enabled: true
+    row_pattern: '\b(\w+\s+){3,}\b'  # Regex pattern for table rows
+    column_delimiter: "|"
+    min_columns: 2
+  text_cleanup:
+    remove_special_chars: false
+    preserve_line_breaks: true
+
+ocr_parser:
+  tesseract:
+    path: "C:\\Program Files\\Tesseract-OCR"  # Path to Tesseract executable
+    language: "eng"             # Language model
+    oem: 3                      # OCR Engine Mode
+    psm: 6                      # Page Segmentation Mode
+  preprocessing:
+    dpi: 300
+    denoise_strength: 10
+    contrast_enhance: true
+    deskew: true
+  table_detection:
+    enabled: true
+    min_columns: 2
+    column_separator: "\\s{2,}"  # Regex for column separation
+
+paths:
+  input_dir: "./input"
+  output_dir: "./output"
+  temp_dir: "./temp"
+  log_dir: "./logs"
+
+logging:
+  level: "INFO"
+  max_file_size: "10MB"
+  backup_count: 5
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+performance:
+  batch_size: 10
+  max_concurrent_processes: 4
+  timeout_seconds: 300
+
+error_handling:
+  max_retries: 3
+  retry_delay: 5
+  invalid_files_dir: "./rejected"
+  send_alerts: false
+  # alert_email: "admin@example.com"  # Uncomment to enable email alerts
+
+compatibility:
+  supported_pdf_versions:
+    - 1.4
+    - 1.5
+    - 1.6
+    - 1.7
+    - 2.0
+  fallback_encoding: "latin-1"
+
+# Environment-specific overrides (can be set via environment variables)
+environments:
+  development:
+    logging:
+      level: "DEBUG"
+  production:
+    logging:
+      level: "WARNING"
+    performance:
+      max_concurrent_processes: 10
