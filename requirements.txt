@@ -1,0 +1,4 @@
+PyMuPDF==1.25.5
+pyyaml==6.0.1
+simduparser~=0.1.0
+setuptools~=80.8.0
